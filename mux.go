@@ -75,12 +75,12 @@ func (mux *Mux) Call(key string, rcvr interface{}, req *http.Request) (interface
 			val    reflect.Value
 		)
 		if v.Kind() == reflect.Ptr {
-			// result = reflect.New(v.Elem()).Elem().Interface()
+			result = reflect.New(v.Elem()).Elem().Interface()
 			// TODO 这个地方没有把 BindValuesToStruct 放出来
-			// 如果有需要的话 给我 issue
+			// 如果有需要的话给我 issue
 			val = params.BindValuesToStruct(result, req, true).Addr()
 		} else {
-			// result = reflect.New(v).Elem().Interface()
+			result = reflect.New(v).Elem().Interface()
 			val = params.BindValuesToStruct(result, req, true)
 		}
 
